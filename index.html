@@ -3,13 +3,112 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>exp.bot</title>
+<title>EXP</title>
+<link rel="icon" href="favicon.ico">
 <style>
-  :root { color-scheme: light dark; }
-  body { margin: 0; min-height: 100vh; display: grid; place-items: center; font-family: system-ui, sans-serif; background: Canvas; color: CanvasText; }
+  :root { --bg: #f4f3ef; --fg: #111111; color-scheme: light dark; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #111111; --fg: #ffffff; } }
+  body { margin: 0; background: var(--bg); color: var(--fg); }
+  /* Fixed full-viewport stage: elements injected into <body> by extensions can't shift the centering */
+  #bg { position: fixed; inset: 0; width: 100%; height: 100%; display: block; opacity: 0; animation: fadeIn 1.2s ease-out 0.4s forwards; }
+  /* Vignette: background dissolves toward the corners */
+  #bg { -webkit-mask-image: radial-gradient(ellipse at center, #000 35%, transparent 100%); mask-image: radial-gradient(ellipse at center, #000 35%, transparent 100%); }
+  main { position: fixed; inset: 0; display: grid; place-items: center; }
+  h1 { margin: 0; }
+  .logo { display: block; width: min(300px, 70vw); height: auto; opacity: 0; animation: fadeIn 0.35s ease-out forwards, imageIn 0.5s ease-out forwards; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes imageIn { 0% { filter: blur(12px); transform: scale(0.9); } 50% { filter: blur(12px); transform: scale(1); } 100% { filter: blur(0px); transform: scale(1); } }
+  @media (prefers-reduced-motion: reduce) { .logo { animation: fadeIn 0.35s ease-out forwards; } #bg { animation: fadeIn 0.35s ease-out forwards; } }
 </style>
 </head>
 <body>
-<h1>exp.bot</h1>
+<canvas id="bg" aria-hidden="true"></canvas>
+<main><h1><svg class="logo" aria-label="EXP" xmlns="http://www.w3.org/2000/svg" viewBox="-32.0 -32.0 525.421461614 176.000000000" role="img"><title>EXP</title><g fill="currentColor"><path data-symbol="S5" d="M 155.81641 10 C 155.79284 10.26545 155.77048 10.53353 155.74805 10.802734 C 152.34697 46.89583 136.79852 80.62833 111.39453 106.86523 C 83.630611 135.60089 50.729437 151.56468 10.402344 155.9375 C 10.266515 155.95169 10.132934 155.96634 10 155.98047 L 10 159.34961 C 22.178074 159.55998 45.625525 159.68555 76.412109 159.68555 C 151.09705 159.68555 151.0962 159.68678 153.38672 161.2832 C 154.7055 162.11612 156.37126 163.9195 157.13477 165.23828 C 158.59237 167.66762 158.5924 168.57047 158.93945 243.67188 C 159.11788 281.3547 159.2234 300.38002 159.45312 310 L 164.06641 310 C 164.09235 309.73828 164.11975 309.47033 164.14648 309.19531 C 167.54756 276.43389 179.97077 246.37907 200.09961 222.36328 C 228.83527 188.28307 266.0394 168.50158 309.76758 164.26758 C 309.84523 164.2594 309.92272 164.25036 310 164.24219 L 310 161.36719 C 300.15595 161.11014 281.23971 161.07422 245.8418 161.07422 C 197.53258 161.07422 171.57209 160.79732 169.90625 160.38086 C 166.57458 159.40912 163.17411 156.56365 161.99414 153.64844 C 161.16122 151.77437 161.02148 138.10058 161.02148 75.701172 C 161.02148 38.527034 161.02183 19.617759 160.82422 10 L 155.81641 10 z " transform="matrix(0.373333333333 0 0 0.373333333333 -3.733333333333 -3.733333333333)"/><g transform="translate(144.000000000 27.222810214)"><path data-letter="e" d="M 197 26.183594 C 172.96622 26.183594 151.03933 30.643276 130.35547 39.548828 C 109.19023 48.661639 91.293241 60.734103 76.013672 76.013672 C 60.734103 91.293241 48.661639 109.19023 39.548828 130.35547 C 30.643276 151.03933 26.183594 172.96622 26.183594 197 C 26.183594 221.03378 30.643276 242.96067 39.548828 263.64453 C 48.661639 284.80977 60.734103 302.70676 76.013672 317.98633 C 91.293241 333.2659 109.19023 345.33836 130.35547 354.45117 C 151.03933 363.35672 172.96622 367.81641 197 367.81641 L 588 367.81641 C 600.12819 367.81641 608.96521 365.03512 617.21484 359.39062 C 626.43623 353.08127 632.23669 346.17207 636.22656 337.52734 C 640.35322 328.58625 642.1185 319.16336 641.37109 307.70312 C 640.73408 297.93559 637.5459 289.85846 629.97266 280.86523 A 26.186163 26.186163 0 0 1 629.54102 280.33984 L 514.54102 136.33984 A 26.186163 26.186163 0 0 1 535 93.816406 L 634.81641 93.816406 L 634.81641 26.183594 L 197 26.183594 z M 197 93.816406 L 387 93.816406 A 26.186163 26.186163 0 0 1 407.48438 103.69141 L 532.48438 260.69141 A 26.186163 26.186163 0 0 1 512 303.18359 L 197 303.18359 C 182.78765 303.18359 168.76351 300.18575 155.97461 294.24805 C 143.7921 288.59188 132.79519 280.75447 123.56055 271.08008 C 114.31287 261.39204 106.97548 250.00307 101.80664 237.51172 C 96.505678 224.70106 93.816406 210.93961 93.816406 197 C 93.816406 169.5299 104.59769 143.37496 123.98633 123.98633 C 143.37496 104.59769 169.5299 93.816406 197 93.816406 z " transform="matrix(0.163918633517 0 0 -0.163918633517 -4.291978949053 60.291970802920)"/><path data-letter="x" d="M 63.210938 26.183594 L 215.51367 178.48633 A 26.186163 26.186163 0 0 1 215.51367 215.51367 L 63.210938 367.81641 L 157.1543 367.81641 L 287.48633 237.48633 A 26.186163 26.186163 0 0 1 306 229.81641 L 433 229.81641 A 26.186163 26.186163 0 0 1 451.51367 237.48633 L 581.8457 367.81641 L 675.78906 367.81641 L 523.48633 215.51367 A 26.186163 26.186163 0 0 1 523.48633 178.48633 L 675.78906 26.183594 L 581.84375 26.183594 L 451.51367 156.51367 A 26.186163 26.186163 0 0 1 433 164.18359 L 306 164.18359 A 26.186163 26.186163 0 0 1 287.48633 156.51367 L 157.1543 26.183594 L 63.210938 26.183594 z " transform="matrix(0.163918633517 0 0 -0.163918633517 93.992545410159 60.291970802920)"/><path data-letter="p" d="M26.183594 -78.73417721518987V197.0C26.183594 221.03378 30.643276 242.96067 39.548828 263.64453C48.661639 284.80977 60.734103 302.70676 76.013672 317.98633C91.293241 333.2659 109.19023 345.33836 130.35547 354.45117C151.03933 363.35672 172.96622 367.81641 197.0 367.81641H506.0C530.03378 367.81641 551.96067 363.35672 572.64453 354.45117C593.80977 345.33836 611.70676 333.2659 626.98633 317.98633C642.2659 302.70676 654.33836 284.80977 663.45117 263.64453C672.35672 242.96067 676.81641 221.03378 676.81641 197.0C676.81641 172.96622 672.35672 151.03933 663.45117 130.35547C654.33836 109.19023 642.2659 91.293241 626.98633 76.013672C611.70676 60.734103 593.80977 48.661639 572.64453 39.548828C551.96067 30.643276 530.03378 26.183594 506.0 26.183594H218.18359V93.816406H506.0C533.4701 93.816406 559.62504 104.59769 579.01367 123.98633C598.40231 143.37496 609.18359 169.5299 609.18359 197.0C609.18359 224.4701 598.40231 250.62504 579.01367 270.01367C559.62504 289.40231 533.4701 300.18359 506.0 300.18359H197.0C169.5299 300.18359 143.37496 289.40231 123.98633 270.01367C104.59769 250.62504 93.816406 224.4701 93.816406 197.0V-78.73417721518987H26.183594Z" transform="matrix(0.163918633517 0 0 -0.163918633517 206.478640544621 60.291970802920)"/></g></g></svg></h1></main>
+<script>
+(() => {
+  const canvas = document.getElementById('bg');
+  const ctx = canvas.getContext('2d');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const GRID = 32, MAJOR = 5;
+  const K = 5, EXIT = 0.84;                 // steepness; fraction of width where the curve leaves the top
+  const DELAY = 500, DRAW = 3500, TRAVEL = 7000, PAUSE = 1200, TRAIL = 180;
+  let w, h, ink, pts = [], t0 = null;
+
+  function resize() {
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    w = innerWidth; h = innerHeight;
+    canvas.width = w * dpr; canvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ink = getComputedStyle(document.body).color.match(/\d+/g).slice(0, 3).join(',');
+    // y = e^(Kx), scaled so it hugs the bottom-left and exits the top at EXIT * width
+    const norm = Math.exp(K * EXIT) - 1;
+    pts = [];
+    for (let x = 0, s = 0; x <= w; x += 2) {
+      const y = h * (1 - (Math.exp(K * x / w) - 1) / norm);
+      const prev = pts[pts.length - 1];
+      if (prev) s += Math.hypot(x - prev.x, y - prev.y);
+      pts.push({ x, y, s });
+      if (y < -20) break;
+    }
+  }
+
+  function drawGrid() {
+    ctx.lineWidth = 1;
+    for (let i = 0, x = 0.5; x < w; i++, x += GRID) {
+      ctx.strokeStyle = `rgba(${ink},${i % MAJOR ? 0.035 : 0.07})`;
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+    }
+    for (let i = 0, y = h - 0.5; y > 0; i++, y -= GRID) {
+      ctx.strokeStyle = `rgba(${ink},${i % MAJOR ? 0.035 : 0.07})`;
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+    }
+  }
+
+  function drawCurve(end) {
+    ctx.strokeStyle = `rgba(${ink},0.2)`;
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(pts[0].x, pts[0].y);
+    for (let i = 1; i <= end; i++) ctx.lineTo(pts[i].x, pts[i].y);
+    ctx.stroke();
+  }
+
+  // Bright tail behind the tracer, fading out over TRAIL px of arc length
+  function drawTracer(i) {
+    const tip = pts[i];
+    ctx.lineWidth = 1.5;
+    for (let j = i; j > 0 && tip.s - pts[j].s < TRAIL; j--) {
+      ctx.strokeStyle = `rgba(${ink},${0.55 * (1 - (tip.s - pts[j].s) / TRAIL)})`;
+      ctx.beginPath(); ctx.moveTo(pts[j - 1].x, pts[j - 1].y); ctx.lineTo(pts[j].x, pts[j].y); ctx.stroke();
+    }
+    ctx.fillStyle = `rgba(${ink},0.75)`;
+    ctx.beginPath(); ctx.arc(tip.x, tip.y, 3, 0, Math.PI * 2); ctx.fill();
+  }
+
+  function frame(now) {
+    if (t0 === null) t0 = now;
+    const t = now - t0 - DELAY;
+    const last = pts.length - 1;
+    ctx.clearRect(0, 0, w, h);
+    drawGrid();
+    if (t > 0 && t < DRAW) {
+      const i = Math.round(last * t / DRAW);
+      drawCurve(i);
+      drawTracer(i);
+    } else if (t >= DRAW) {
+      drawCurve(last);
+      const lt = (t - DRAW) % (TRAVEL + PAUSE);
+      if (lt < TRAVEL) drawTracer(Math.round(last * lt / TRAVEL));
+    }
+    requestAnimationFrame(frame);
+  }
+
+  addEventListener('resize', resize);
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', resize);
+  resize();
+  if (reduced) { drawGrid(); drawCurve(pts.length - 1); }
+  else requestAnimationFrame(frame);
+})();
+</script>
 </body>
 </html>
