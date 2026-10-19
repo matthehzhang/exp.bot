@@ -29,7 +29,7 @@
   const canvas = document.getElementById('bg');
   const ctx = canvas.getContext('2d');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const GRID = 32, MAJOR = 5;
+  const GRID = 48, MAJOR = 5;
   const K = 5, EXIT = 0.84;                 // steepness; fraction of width where the curve leaves the top
   const DELAY = 500, DRAW = 3500, TRAVEL = 7000, PAUSE = 1200, TRAIL = 180;
   let w, h, ink, pts = [], t0 = null;
