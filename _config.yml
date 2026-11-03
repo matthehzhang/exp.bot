@@ -1,0 +1,3 @@
+# GitHub Pages serves the landing page only; the fleet portal (portal/) is built and served by
+# Vercel at app.exp.bot, and supabase/ is its backend's source.
+exclude: [portal, supabase, README.md]
